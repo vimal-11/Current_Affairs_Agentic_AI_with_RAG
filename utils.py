@@ -99,5 +99,32 @@ def extract_article_content_from_xml(xml_file_path):
             'author': author,
             'full_content': full_content,
         })
-    
     return results
+
+
+
+
+def parse_xml(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        xml_data = f.read()
+    root = etree.fromstring(xml_data.encode('utf-8'))
+    articles = []
+    for article in root.findall('article'):
+        title = article.findtext('title')
+        author = article.findtext('author')
+        description = article.findtext('description')
+        source_name = article.find('source/name').text if article.find('source/name') is not None else None
+        published_at = article.findtext('publishedAt')
+        url = article.findtext('url')
+        full_content = article.findtext('full_content')
+
+        articles.append({
+            'title': title,
+            'author': author,
+            'description': description,
+            'source_name': source_name,
+            'published_at': published_at,
+            'url': url,
+            'full_content': full_content
+        })
+    return articles
