@@ -36,7 +36,7 @@ def create_table():
             description TEXT,
             source_name TEXT,
             published_at TIMESTAMP,
-            url TEXT UNIQUE,,
+            url TEXT UNIQUE,
             full_content TEXT
         );
     """)
@@ -71,26 +71,33 @@ def create_table_features():
 def insert_article(data):
     conn = connect_db()
     cur = conn.cursor()
-    cur.execute("""
-        INSERT INTO articles (title, author, description, source_name, published_at, url, full_content)
-        VALUES (%s, %s, %s, %s, %s, %s, %s) 
-        ON CONFLICT (url) DO NOTHING
-        RETURNING id;
-    """, (
-        data["title"], data["author"], data["description"], data["source_name"],
-        data["published_at"], data["url"], data["full_content"]
-    ))
-    article_id = cur.fetchone()[0]
-    if article_id:
-        article_id = article_id[0]
-    else:
-        cur.execute("SELECT id FROM articles WHERE url = %s", (data["url"],))
-        article_id = cur.fetchone()[0]
-    conn.commit()
-    cur.close()
-    conn.close()
-    return article_id
-
+    try:
+        cur.execute("""
+            INSERT INTO articles (title, author, description, source_name, published_at, url, full_content)
+            VALUES (%s, %s, %s, %s, %s, %s, %s) 
+            ON CONFLICT (url) DO NOTHING
+            RETURNING id;
+        """, (
+            data["title"], data["author"], data["description"], data["source_name"],
+            data["published_at"], data["url"], data["full_content"]
+        ))
+        result = cur.fetchone()
+        if result:
+            article_id = result[0]
+        else:
+            # Get the existing article's ID if conflict occurred
+            cur.execute("SELECT id FROM articles WHERE url = %s", (data["url"],))
+            article_id = cur.fetchone()[0]
+        conn.commit()
+        cur.close()
+        conn.close()
+        return article_id
+    except Exception as e:
+        print(f"Error inserting article: {e}")
+        conn.rollback()
+        return None
+        
+        
 
 def read_articles():
     conn = connect_db()
@@ -130,7 +137,7 @@ def delete_article(article_id):
 
 
 
-def insert_feature(data):
+def insert_feature(article_id, data):
     conn = connect_db()
     cur = conn.cursor()
     cur.execute("""
@@ -140,7 +147,7 @@ def insert_feature(data):
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT (article_id) DO NOTHING;
     """, (
-        data["article_id"],
+        article_id,
         data["people"],
         data["organizations"],
         data["locations"],
