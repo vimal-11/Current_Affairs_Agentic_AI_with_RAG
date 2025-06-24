@@ -206,3 +206,20 @@ def delete_feature(feature_id):
     conn.commit()
     cur.close()
     conn.close()
+
+
+
+
+def search_articles(query):
+    conn = connect_db()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT a.title, a.full_content, f.people, f.organizations
+        FROM articles a
+        JOIN features f ON a.id = f.article_id
+        WHERE a.full_content ILIKE %s OR f.people @> %s;
+    """, (f"%{query}%", [query]))
+    results = cur.fetchall()
+    cur.close()
+    conn.close()
+    return results
