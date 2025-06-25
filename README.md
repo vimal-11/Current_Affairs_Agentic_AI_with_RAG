@@ -99,7 +99,7 @@ This will:
 
 ---
 
-### 2. 🧠 Embed & Store in Chroma Vector DB
+### 3. 🧠 Embed & Store in Chroma Vector DB
 
 ```bash
 python vectordb.py
@@ -115,7 +115,7 @@ This will:
 
 ---
 
-### 3. 🔍 Query with Retrieval-Augmented Generation (RAG)
+### 4. 🔍 Query with Retrieval-Augmented Generation (RAG)
 
 ```bash
 python rag.py
