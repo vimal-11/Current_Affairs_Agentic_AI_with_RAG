@@ -223,3 +223,22 @@ def search_articles(query):
     cur.close()
     conn.close()
     return results
+
+
+
+
+def get_articles_and_features():
+    conn = connect_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT a.id, a.title, a.full_content, f.people, f.organizations, f.locations, f.dates,
+               f.geopolitical_groups, f.event_sentences, f.sentiment
+        FROM articles a
+        JOIN features f ON a.id = f.article_id;
+    """)
+
+    results = cur.fetchall()
+    cur.close()
+    conn.close()
+    return results
