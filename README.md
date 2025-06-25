@@ -30,7 +30,7 @@ Current_Affairs_RAG/
 
 ---
 
-## 🚀 Features
+## Features
 
 - Collects news data from News API and processing XML
 - Stores news data and rich NLP features in **PostgreSQL**
@@ -42,7 +42,7 @@ Current_Affairs_RAG/
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 Install dependencies:
 
@@ -62,9 +62,9 @@ Dependencies include:
 
 ---
 
-## 🧱 Step-by-Step Workflow
+## Step-by-Step Workflow
 
-### 1. 🗃️ Data Preparation
+### 1. Data Preparation
 
 Collects news data from News API, converts into XML
 
@@ -80,7 +80,7 @@ This will:
 ---
 
 
-### 2. 🗃️ Feature Extraction
+### 2. Feature Extraction
 
 Extract features (NER, sentiment, dates) from raw news content and store them in PostgreSQL.
 
@@ -99,7 +99,7 @@ This will:
 
 ---
 
-### 3. 🧠 Embed & Store in Chroma Vector DB
+### 3. Embed & Store in Chroma Vector DB
 
 ```bash
 python vectordb.py
@@ -115,7 +115,7 @@ This will:
 
 ---
 
-### 4. 🔍 Query with Retrieval-Augmented Generation (RAG)
+### 4. Query with Retrieval-Augmented Generation (RAG)
 
 ```bash
 python rag.py
@@ -126,8 +126,8 @@ This script:
 - Retrieves top-k relevant documents based on your question
 - Sends them + question as prompt to **Google Gemini 2.5 Flash**
 - Displays:
-  - 📝 Final LLM-generated answer
-  - 📚 Titles of source documents used
+  - Final LLM-generated answer
+  - Titles of source documents used
 
 Sample query:
 
@@ -148,7 +148,7 @@ Sources:
 
 ---
 
-## 🧪 Google Gemini API Setup
+## Google Gemini API Setup
 
 Use Gemini 2.5 Flash via `google.generativeai`:
 
@@ -180,7 +180,7 @@ response = client.models.generate_content(
 
 ---
 
-## 📌 Environment Variables (optional)
+## Environment Variables (optional)
 
 If preferred, use `.env` to store secrets:
 
@@ -193,7 +193,7 @@ DB_NAME=your_db_name
 ---
 
 
-## ✍️ Credits
+## Credits
 
 Built By:
 - Vimalaadithan Bharathi Sivakumar
