@@ -7,9 +7,10 @@ XML_PATH = "data/article.xml"
 articles = parse_xml(XML_PATH)
 
 # create tables
-# db_utils.create_table()
-# db_utils.create_table_features()
+db_utils.create_table()
+db_utils.create_table_features()
 
+# insert into articles and features table
 for article in articles:
     # Insert article and get its ID
     try:

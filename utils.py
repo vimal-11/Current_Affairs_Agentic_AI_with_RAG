@@ -105,6 +105,15 @@ def extract_article_content_from_xml(xml_file_path):
 
 
 def parse_xml(file_path):
+    """
+    Parses an XML file containing multiple news articles and extracts relevant metadata and content.
+
+    Args:
+        file_path (str): Path to the XML file containing news articles.
+
+    Returns:
+        list[dict]: A list of dictionaries where each dictionary contains the article metadata:
+    """
     with open(file_path, 'r', encoding='utf-8') as f:
         xml_data = f.read()
     root = etree.fromstring(xml_data.encode('utf-8'))

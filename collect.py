@@ -5,7 +5,7 @@ from utils import fetch_full_article, extract_article_content_from_xml, dict_to_
 newsapi = NewsApiClient(api_key='ed79cabfc3c5467e85924626745833f7')
 
 
-# /v2/everything
+# /v2/everything - fetch from news api
 all_articles = newsapi.get_everything(q='Isreal Iran',
                                       # sources='bbc-news,the-verge',
                                       # domains='bbc.co.uk,techcrunch.com',
@@ -15,7 +15,7 @@ all_articles = newsapi.get_everything(q='Isreal Iran',
                                     )
 
 
-
+# extract full content using url
 for art in all_articles['articles']:
     full_text = fetch_full_article(art['url'])
     if full_text:

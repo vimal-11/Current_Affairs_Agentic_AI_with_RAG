@@ -98,7 +98,6 @@ def insert_article(data):
         return None
         
         
-
 def read_articles():
     conn = connect_db()
     cur = conn.cursor()
@@ -134,7 +133,6 @@ def delete_article(article_id):
     conn.commit()
     cur.close()
     conn.close()
-
 
 
 def insert_feature(article_id, data):
@@ -208,8 +206,6 @@ def delete_feature(feature_id):
     conn.close()
 
 
-
-
 def search_articles(query):
     conn = connect_db()
     cur = conn.cursor()
@@ -223,8 +219,6 @@ def search_articles(query):
     cur.close()
     conn.close()
     return results
-
-
 
 
 def get_articles_and_features():

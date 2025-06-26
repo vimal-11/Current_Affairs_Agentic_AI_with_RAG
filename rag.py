@@ -11,6 +11,23 @@ client = genai.Client(api_key=GENAI_API)
 
 # RAG 
 def ask_with_rag(vectorstore, question):
+    """
+    Performs Retrieval-Augmented Generation (RAG) to answer a user question using a vector store and LLM.
+
+    1. Retrieves top relevant documents from the vector database using semantic similarity.
+    2. Builds a context prompt using content and metadata (title) from retrieved documents.
+    3. Sends the prompt to an LLM for answer generation.
+    4. Returns the model's response and the source document titles used.
+
+    Args:
+        vectorstore (Chroma): The Chroma vector store containing embedded documents.
+        question (str): The user query in natural language.
+
+    Returns:
+        tuple:
+            - str: The generated answer from the  LLM.
+            - list[str]: List of titles of the documents used as context.
+    """
     # retreive the docs from vector db
     retrieved_docs = query_vectorstore(vectorstore, question)
     # Build context with titles
