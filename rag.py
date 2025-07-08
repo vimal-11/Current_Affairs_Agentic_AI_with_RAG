@@ -57,7 +57,7 @@ if __name__ == "__main__":
     # load the vector db
     vectorstore = load_vectorstore()
 
-    question = "How is Isreal's Econommy right now?"
+    question = "How is Isreal's Economy right now?"
     answer, sources = ask_with_rag(vectorstore, question)
 
     print("\nGemini's Answer:\n", answer)

@@ -137,3 +137,29 @@ def parse_xml(file_path):
             'full_content': full_content
         })
     return articles
+
+
+
+def validate_xml(xml_path, xsd_path):
+    """Validates an XML file against an XSD schema."""
+    try:
+        # Load the XSD schema
+        xmlschema_doc = etree.parse(xsd_path)
+        xmlschema = etree.XMLSchema(xmlschema_doc)
+
+        # Load the XML file to be validated
+        xml_doc = etree.parse(xml_path)
+        
+        # The assertValid method will raise an exception if validation fails
+        xmlschema.assertValid(xml_doc)
+        
+        return True
+    except etree.DocumentInvalid as e:
+        # This catches validation-specific errors
+        print("XML validation error:")
+        print(e)
+        return False
+    except Exception as e:
+        # This catches other errors, like file not found
+        print(f"An error occurred during validation: {e}")
+        return False
